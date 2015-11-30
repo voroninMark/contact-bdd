@@ -1,0 +1,52 @@
+extends layout
+
+block head
+  script(src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js")
+  link(rel="stylesheet",href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css")
+  script(src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js")
+
+  script(src="javascripts/phone.js")
+  script(src="javascripts/mail.js")
+  script(src="javascripts/contact.js")
+  script(src="javascripts/contacts.js")
+  script(src="javascripts/builder.js")
+  script(src="javascripts/contactIterator.js")
+  script(src="javascripts/storage.js")
+  script(src="javascripts/view.js")
+  script(src="javascripts/model.js")
+  script(src="javascripts/controller.js")
+
+  script(language='javascript').
+        var build = function () {
+            var model = new Contact.Model();
+            var view = new Contact.View(model);
+            var controller = new Contact.Controller(model, view);
+        };
+
+        var init = function () {
+            var contact = new Contact.Builder().createContactWithProfessionalMobile(
+                    Contact.Gender.MR, 'Eric', 'RAMAT', '0616642258');
+
+            contact.addPhone(new Contact.Phone('0321465676', Contact.PhoneCategory.PRO, Contact.PhoneType.PHONE));
+            contact.addMail(new Contact.Mail('ramat@lisic.univ-littoral.fr', Contact.MailCategory.PRO));
+            contact.addMail(new Contact.Mail('eric.ramat@gmail.com', Contact.MailCategory.PERSO));
+            contact.addTag('prof');
+            Contact.Contacts.instance().add(contact);
+            Contact.Contacts.instance().add(new Contact.Builder().createContactWithProfessionalMobile(
+                    Contact.Gender.MR, 'Pierre', 'DUPONT', '0636532535'));
+            Contact.Contacts.instance().add(new Contact.Builder().createContactWithProfessionalMobile(
+                    Contact.Gender.MR, 'Jean', 'DUPOND', '0612343000'));
+            Contact.Contacts.instance().add(new Contact.Builder().createContactWithProfessionalMobile(
+                    Contact.Gender.MR, 'Jacques', 'DURAND', '0699785487'));
+        }
+
+  script(language='javascript').
+        $(document).ready(function () {
+            init();
+            build();
+        });
+
+block content
+  h1= title
+
+  div#contacts
