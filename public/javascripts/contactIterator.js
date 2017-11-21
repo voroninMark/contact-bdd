@@ -18,7 +18,7 @@ Contact = (function (self) {
         };
 
         this.hasNext = function () {
-            return index <= keys.length;
+            return index < keys.length;
         };
 
         this.reset = function () {
