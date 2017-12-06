@@ -31,12 +31,12 @@ When(/^User clicks on remove button of the first contact$/,function (callback) {
     this.browser.visit('http://localhost:3000',(err) => {
         if(err) throw err;
         var tab = this.browser.queryAll("table tbody td a");
-        tab[0].click();
+
         var myContact = this.browser.tabs.current.Contact;
         size_before=myContact.Contacts.instance().size();
         first_name_before=myContact.Contacts.instance().iterator().next().firstName();
         fn_html_before = this.browser.query('table tr:nth-child(2) td:nth-child(1)').innerHTML;
-
+        tab[0].click();
 
         callback();
     });
@@ -45,6 +45,7 @@ Then(/^The first contact is removed$/,function (callback) {
 
     this.browser.visit('http://localhost:3000',(err) => {
         if(err) throw err;
+        this.browser.queryAll("table tbody td a")[0].click();
         var myContact = this.browser.tabs.current.Contact;
         var first_name_after=myContact.Contacts.instance().iterator().next().firstName();
         var size_after=myContact.Contacts.instance().size();
