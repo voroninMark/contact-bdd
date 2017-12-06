@@ -36,12 +36,12 @@ Then(/^The contact list is sorted$/,function (callback) {
         if(err) throw err;
         var br=this.browser;
         var getFirstNamesFromHtml= function () {
-            var arr_html=[];
+            var temp_html=[];
             var nb_contacts=br.queryAll('table tr td').length%br.queryAll('table tr').length;
             for(var i=0;i<nb_contacts;i++){
-                arr_html.push(br.queryAll('table tr td')[1+i*6].innerHTML);
+                temp_html.push(br.queryAll('table tr td')[1+i*6].innerHTML);
             }
-            return arr_html;
+            return temp_html;
         };
         var arr_html_sorted_with_function=getFirstNamesFromHtml();
         arr_html_sorted_with_function.sort();
